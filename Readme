@@ -5,7 +5,7 @@ The main idea is combining "equation learner" (https://github.com/martius-lab) a
 learn functionals, and apply to classical density functional theory problems. 
 
 One need to be somehow familar with python for testing data, and has at least some shallow 
-keras/tensoeflow knowledge and reasonable hardware (Nvida GPU that can run 10 hours without break) for training.
+keras/tensorflow knowledge and reasonable hardware (Nvida GPU that can run 10 hours without break) for training.
 
 The crucial libraries are tensorflow-gpu 1.12 and sympy 1.3. Nvidia GPU and cuda are strongly recommend for training. 
 The explicity library list for training is in "tf_file.txt". 
