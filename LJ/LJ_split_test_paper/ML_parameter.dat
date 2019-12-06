@@ -1,0 +1,4 @@
+n_parameter=1
+n_conv=4
+conv_dim=513
+kill=0.05

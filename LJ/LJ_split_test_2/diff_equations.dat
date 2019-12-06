@@ -1,0 +1,20 @@
+def Df_n0():
+     return diff(fed_eqn(),sn0)
+
+df_n0= lambdify([syms],Df_n0(),"tensorflow")
+
+def Df_n1():
+     return diff(fed_eqn(),sn1)
+
+df_n1= lambdify([syms],Df_n1(),"tensorflow")
+
+def Df_n2():
+     return diff(fed_eqn(),sn2)
+
+df_n2= lambdify([syms],Df_n2(),"tensorflow")
+
+def Df_n3():
+     return diff(fed_eqn(),sn3)
+
+df_n3= lambdify([syms],Df_n3(),"tensorflow")
+
