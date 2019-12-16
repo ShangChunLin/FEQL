@@ -9,7 +9,7 @@ keras/tensorflow knowledge and reasonable hardware (Nvida GPU that can run 10 ho
 
 The crucial libraries are tensorflow(-gpu) 1.12 and sympy 1.3. Nvidia GPU and cuda are strongly recommend for training. 
 
-"tf_file.txt" -> explicity library list for training is in  
+"tf_file.txt" -> explicity library list for training
 
 One can use conda to creat exactly same enviroment easily (conda create --name name_of_env --file tf_file.txt , 
 see https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html for more details).
