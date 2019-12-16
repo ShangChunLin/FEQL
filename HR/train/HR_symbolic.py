@@ -612,7 +612,7 @@ with open(model_name, "w") as file:
     file.write("])")
     file.write("\n")
     file.write("    rhoML = Lambda(lambda x: K.exp(-x[0]-x[1]-x[2]))([c1,c1_HR,Vext])\n")
-    file.write("    muML = Lambda(cal_z)([rho,rhoML])# dont change order of muML and rhoML\n")  
+    file.write("    muML = Lambda(cal2_z)([rho,rhoML])# dont change order of muML and rhoML\n")  
     file.write("    rhoML= Lambda(lambda x: K.exp(x[0])*x[1])([muML,rhoML])\n")
     for i in range (n_conv):
         file.write("    asymw"+str(i)+" = Lambda(lambda x:dx*K.sum(K.abs(K.abs(x)-K.abs(K.reverse(x,axes=0))),axis=0,keepdims=True))(w"+str(i)+")\n")
