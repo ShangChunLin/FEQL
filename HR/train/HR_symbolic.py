@@ -15,8 +15,9 @@ os.environ["CUDA_VISIBLE_DEVICES"]="0";
 
 import tensorflow as tf
 from keras.backend.tensorflow_backend import set_session
-#config = tf.ConfigProto()
-#config.gpu_options.per_process_gpu_memory_fraction = 0.8
+
+#config = tf.ConfigProto() 
+#config.gpu_options.per_process_gpu_memory_fraction = 0.8 #gpu memory limit
 #set_session(tf.Session(config=config))
 
 # Do other imports now...
@@ -66,9 +67,6 @@ from shutil import copyfile
 
 # ## Load data and etc.
 
-# In[ ]:
-
-
 data_file = '../HR_data/'
 f=np.loadtxt(data_file+"parameter.dat")
 L = float(f[0])
@@ -76,10 +74,6 @@ N = int(f[1])
 dx=L/N
 input_shape = (N,1)
 print(L,N,dx)
-
-
-# In[ ]:
-
 
 f = open(data_file+'rho_z.dat', 'r')
 MC_inform = f.read().splitlines()
@@ -89,16 +83,6 @@ for i in range(len(MC_inform)):
 f.close()
 #MC_inform = np.asarray(MC_inform)
 batch_size = len(MC_inform)
-
-
-# In[ ]:
-
-
-batch_size 
-
-
-# In[ ]:
-
 
 def w_FMT(eps):
     #d=cal_eff_diameter (eps)
@@ -124,16 +108,6 @@ def cal_c1_FMT(rho,eps=0):
     return np.zeros(len(rho))
     
 
-
-# In[ ]:
-
-
-MC_inform[-1]
-
-
-# In[ ]:
-
-
 rho= []
 c1_HR = []
 Vext= []
@@ -155,38 +129,18 @@ for i in range (batch_size):
     mu += [np.log(np.float(MC_inform[i][2]))]
     eps += [0]
     
-#inputs[0].shape
-
-
-# In[ ]:
-
-
-np.exp(np.min(mu)),np.exp(np.max(mu))
-
-
-# In[ ]:
 
 
 rho_mean = np.mean(rho,axis=0)
 print(max(rho_mean),min(rho_mean))
 
 
-# In[ ]:
 
-
-plt.plot(np.exp(mu[0]-c1_HR[0]-Vext[0]))
-plt.plot(rho[0])
-
-
-# In[ ]:
-
+#plt.plot(np.exp(mu[0]-c1_HR[0]-Vext[0]))
+#plt.plot(rho[0])
 
 rho_train=np.asarray(rho)
 rho_train.shape
-
-
-# In[ ]:
-
 
 rho_train=np.asarray(rho)
 c1_HR_train=np.asarray(c1_HR)
@@ -206,10 +160,6 @@ deltaF_train=deltaF_train.reshape(deltaF_train.shape[0], N , 1)
 test_size=0.1
 
 rho_train, rho_test ,c1_HR_train, c1_HR_test,Vext_train, Vext_test,eps_train,eps_test, mu_train, mu_test, deltaF_train, deltaF_test= train_test_split(rho_train,c1_HR_train,Vext_train,eps_train,mu_train, deltaF_train , test_size=test_size, random_state=42)
-#c1_HR_train, c1_HR_test    = train_test_split(c1_HR_train, test_size=test_size)
-#Vext_train, Vext_test= train_test_split(Vext_train, test_size=test_size)
-#eps_train, eps_test  = train_test_split(eps_train, test_size=test_size)
-#mu_train, mu_test    = train_test_split(mu_train, test_size=test_size)
 
 
 print(rho_train.shape)
@@ -221,28 +171,16 @@ print(eps_train.shape)
 print(deltaF_test.shape)
 
 
-# In[ ]:
-
-
-plt.plot(rho_train[0],label="rho1")
+#plt.plot(rho_train[0],label="rho1")
 #plt.plot(Vext_train[0]/100,label="V1")
 
-plt.plot(rho_test[0],label="rho2")
+#plt.plot(rho_test[0],label="rho2")
 #plt.plot(Vext_test[0]/100,label="V2")
-plt.legend()
+#plt.legend()
 
 
-# In[ ]:
-
-
-rho_train[0];
-
-
-# In[ ]:
-
-
-rho_train[0].shape
-
+#rho_train[0];
+#rho_train[0].shape
 
 # ## Generate free energy density on the fly
 
@@ -262,16 +200,6 @@ fed = equation_gen_sparse(n_layer,n_density,n_parameter,n_id,n_log,n_exp,n_mul,n
 # no bias is dangerous for log, non-couple may have particle density not coupled with others 
 
 
-# In[ ]:
-
-
-#fed.subs('eps0',0)
-fed
-
-
-# In[ ]:
-
-
 #save all symbols to all_symbols.dat
 name = "all_symbols.dat"
 with open(name, "w") as text_file:
@@ -286,8 +214,6 @@ syms = syms.split(',')
 syms=sorted(tuple(syms))
 syms2 = ['s' + i for i in syms]
 
-
-# In[ ]:
 
 
 #initial all symbols and syms
@@ -309,10 +235,6 @@ exec(tmp)
 name = "assign_symbols_final.dat"
 with open(name, "w") as text_file:
     text_file.write(tmp)
-
-
-# In[ ]:
-
 
 #def fed_eqn
 fed_string = str(fed)
@@ -336,25 +258,10 @@ exec(tmp)
 fed_tf= lambdify(syms,fed_eqn(),'tensorflow')
 
 
-# In[ ]:
-
-
-fed_tf
-
-
-# In[ ]:
-
-
-len(syms)
-
-
-# In[ ]:
 
 
 n_conv = n_density*(1)  #(n_parameter+1) for full 
 
-
-# In[ ]:
 
 
 name = "diff_equations.dat"
@@ -385,20 +292,8 @@ exec(gen_s2)
 
 
 
-# In[ ]:
-
-
-fed_eqn()
-
-
-# In[ ]:
-
 
 diff(fed_eqn(),sn0).subs({"n0":0,"n1":0}).free_symbols;
-
-
-# In[ ]:
-
 
 sub_str = "({"
 for i in range (n_conv):
@@ -408,25 +303,12 @@ for i in range (n_conv):
 sub_str += "})"
 
 
-# In[ ]:
-
-
-sub_str
-
-
-# In[ ]:
-
-
-
 gen_s3="s3=("
 for i in range (n_conv):
     gen_s3+="+diff(fed_eqn(),sn"+str(i)+").subs"+sub_str
 gen_s3+=").free_symbols"
 print(gen_s3)
 exec(gen_s3)
-
-
-# In[ ]:
 
 
 tmp=str(s3)
@@ -446,8 +328,6 @@ for i in range(len(tmp)):
 redunt+="0"  
 
 
-# In[ ]:
-
 
 print(redunt)
 redunt_eq=eval(redunt)
@@ -455,8 +335,6 @@ s3=redunt_eq.free_symbols
 s1=fed_eqn().free_symbols
 s1-s3;
 
-
-# In[ ]:
 
 
 redunt = str(s3)
@@ -476,9 +354,6 @@ train_val= tuple(train_val.split(','))
 train_val = sorted(train_val)
 
 
-# In[ ]:
-
-
 name = "redudent.dat"
 with open(name, "w") as text_file:
     text_file.write(str(redunt))
@@ -490,20 +365,12 @@ with open(name, "w") as text_file:
 print(len(s1),len(s2),len(s3))
 
 
-# ## Generate model on the fly
-
-# In[ ]:
-
-
 conv_dim = int((int(8/dx/2))*2+1)
 conv_h = int((conv_dim-1)/2) # half of conv_dim
 print(conv_dim,conv_h,conv_dim*dx)
 
 K.clear_session()
 np.random.seed(424242)
-
-
-# In[ ]:
 
 
 def cal_z(s): #particle N conserved
@@ -535,16 +402,6 @@ def pbc_conv(s):
     #a = K.reverse(a,axes=1)
     a = a*dx
     return a
-
-
-# In[ ]:
-
-
-syms
-
-
-# In[ ]:
-
 
 
 model_name = "The_model.dat"
@@ -636,25 +493,19 @@ with open(model_name, "w") as file:
     file.write("    return model")
 
 
-# In[ ]:
-
 
 tmp = open(model_name, "r")
 tmp=tmp.read()
 exec(tmp)
 
 
-# In[ ]:
 
 
 
-#F_ML.summary()
+#print(F_ML.summary())
 
 
 # ## choo choo ~ (training part)
-
-# In[ ]:
-
 
 logname="log_file.dat"
 with open(logname, "w") as file:
@@ -667,7 +518,6 @@ def show_loss(epoch, logs):
         file.write(str(logs)+"\n")
 
 
-# In[ ]:
 
 
 class StoppingByLossNan(Callback):
@@ -689,8 +539,6 @@ class StoppingByLossNan(Callback):
             self.model.stop_training = True
 
 
-# In[ ]:
-
 
 file = "F_ML.hdf5"
 checkpoint=ModelCheckpoint(file, monitor='val_loss', verbose=0, save_best_only=True, save_weights_only=False, mode='min', period=1)
@@ -700,8 +548,6 @@ epochLogCallback = LambdaCallback(on_epoch_end=show_loss)
 
 callbacks_list = [checkpoint,epochLogCallback,StoppingByLossNan(monitor='val_loss',monitor2='loss', verbose=1)]
 
-
-# In[ ]:
 
 
 def output_parameters(weight_dict,kill,phase=-1):
@@ -737,8 +583,6 @@ def output_parameters(weight_dict,kill,phase=-1):
     print("output_parameters")
     return w_array
 
-
-# In[ ]:
 
 
 # the 3 step procedure descripted in the paper 
@@ -812,9 +656,7 @@ for phase in range (0,3):
     #    break
 
 
-# In[ ]:
 
-
-for i in range (n_conv):
-    plt.plot(w_array[i])
+#for i in range (n_conv):
+#    plt.plot(w_array[i])
 
