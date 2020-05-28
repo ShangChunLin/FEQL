@@ -541,7 +541,7 @@ class StoppingByLossNan(Callback):
 
 
 file = "F_ML.hdf5"
-checkpoint=ModelCheckpoint(file, monitor='val_loss', verbose=0, save_best_only=True, save_weights_only=False, mode='min', period=1)
+checkpoint=ModelCheckpoint(file, monitor='val_loss', verbose=0, save_best_only=False, save_weights_only=False, mode='min', period=1)
 stop=EarlyStopping(monitor='val_loss', min_delta=0, patience=2000,  
                    verbose=0, mode='min', baseline=None, restore_best_weights=True)
 epochLogCallback = LambdaCallback(on_epoch_end=show_loss)
