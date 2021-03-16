@@ -5,8 +5,8 @@ arXiv:1910.12752
 or 
 The Journal of Chemical Physics: https://aip.scitation.org/doi/10.1063/1.5135919
 ). 
-The main idea is combining "equation learner" (https://github.com/martius-lab) and convolutional neuron network to 
-learn functionals, and apply to classical density functional theory problems. 
+The main idea is combining "equation learner" (https://github.com/martius-lab), convolutional neuron network and autoencoder to 
+learn functionals, and apply it on classical density functional theory problems. 
 
 One need to be somehow familar with python for testing data, and has at least some shallow 
 keras/tensorflow knowledge and reasonable hardware (Nvida GPU that can run 10 hours without break) for training.
