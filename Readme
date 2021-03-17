@@ -1,3 +1,7 @@
+![alt text](https://github.com/ShangChunLin/FEQL/blob/master/model_plot_sparse4.pdf)
+
+![alt text](https://github.com/ShangChunLin/FEQL/blob/master/rho_LJ_inside.pdf)
+
 This repository is for learnining  functionals from an equation learning network (
 see my paper "Analytical classical density functionals from an equation learning network" for details,
 
@@ -50,6 +54,11 @@ In "LJ" folder:
                             XXX.ipynb are named in the same spirit as the HR cases. 
      "LJ_no_split_test" -> the learned functional by "LJ_no_split_train". The result I have shown in the paper. 
      
+
+update: Pytorch implementation of the HR case.
+Under folder "pytorch_HR", the notebook "FEQL_pytoch_batch.ipynb" used pytorch framework, which is much readerable than previous tensorflow version.
+And the weight functions now trained in the Fourier space.
+
 For any question, please send me a mail: shang-chun.lin"at"uni-tuebingen.de
 
 Shang
