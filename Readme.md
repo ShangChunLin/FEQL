@@ -57,7 +57,7 @@ In "LJ" folder:
 
 update: Pytorch implementation of the HR case.
 Under folder "pytorch_HR", the notebook "FEQL_pytoch_batch.ipynb" used pytorch framework, which is much readerable than previous tensorflow version.
-And the weight functions now trained in the Fourier space.
+And the weight functions were trained in the Fourier space.
 
 For any question, please send me a mail: shang-chun.lin"at"uni-tuebingen.de
 
